@@ -45,8 +45,6 @@ def edit_post(request, post_id):
         if nueva_imagen:
             post.imagen = nueva_imagen
         post.vto = request.POST.get('vto', None)
-
         post.save()
         return redirect('inicio')  
-
     return render(request, 'edit_post.html', {'post': post})
