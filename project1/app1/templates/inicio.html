@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block content %}
+  <h1>Inicio</h1>
+  <table class="post-table">
+    <tbody>
+      {% for pst in post %}
+        <tr>
+          <td>
+            {% if pst.imagen %}
+            <img src="{{ pst.imagen.url }}" alt="post Image" width="150px">
+            {% endif %}
+          </td>
+          <td>
+            <h2>{{ pst.title }}</h2>
+            <p>{{ pst.content }}</p>
+            <p>{{ pst.vto }}</p>
+            <a href="{% url 'edit_post' pst.pk %}">Editar este post</a><br>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -24,6 +24,7 @@ def mensaje(request):
     mensajes = request.path
     return HttpResponse(mensajes)
 
+@login_required
 def crear_post(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -35,6 +36,7 @@ def crear_post(request):
     
     return render(request, 'postear.html')
 
+@login_required
 def edit_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
 
