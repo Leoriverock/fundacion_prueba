@@ -4,9 +4,13 @@
 
 {% block content %}
   <h1>Inicio</h1>
+  <form method="GET" action="{% url 'inicio' %}" class="search-form">
+    <input type="text" name="buscar" value="{{ search_query }}" placeholder="Buscar por título">
+    <button type="submit">Buscar</button>
+  </form>
   <table class="post-table">
     <tbody>
-      {% for pst in post %}
+      {% for pst in page %}
         <tr>
           <td>
             {% if pst.imagen %}
@@ -23,4 +27,21 @@
       {% endfor %}
     </tbody>
   </table>
+
+  <!-- Agrega enlaces de paginación -->
+  <div class="pagination">
+    <span class="step-links">
+      {% if page.has_previous %}
+        <a href="?page=1">&laquo; primero</a>
+        <a href="?page={{ page.previous_page_number }}">anterior</a>
+      {% endif %}
+
+      <span class="current-page">{{ page.number }}</span>
+
+      {% if page.has_next %}
+        <a href="?page={{ page.next_page_number }}">siguiente</a>
+        <a href="?page={{ page.paginator.num_pages }}">último &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 {% endblock %}

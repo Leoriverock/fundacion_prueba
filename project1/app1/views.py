@@ -2,13 +2,31 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Post
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, Page
+
+
 
 # Create your views here.
 
 def inicio(request):
-    path = request.path
-    post = Post.objects.all()
-    return render (request, 'inicio.html',{'path':path,'post':post})
+    # Obtén el parámetro de consulta 'buscar' de la URL
+    search_query = request.GET.get('buscar', '')
+
+    # Obtén todas las publicaciones que coincidan con la consulta de búsqueda o todas las publicaciones si no hay búsqueda
+    if search_query:
+        post_list = Post.objects.filter(Q(title__icontains=search_query))
+    else:
+        post_list = Post.objects.all()
+
+    # Crea un objeto Paginator para paginar los resultados
+    paginator = Paginator(post_list, 5)  # Muestra 5 registros por página
+
+    # Obtiene el número de página de la URL o usa 1 como valor predeterminado
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+
+    return render(request, 'inicio.html', {'page': page, 'search_query': search_query})
+
 
 @login_required
 def usuario(request):
