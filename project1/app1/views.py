@@ -9,19 +9,15 @@ from django.core.paginator import Paginator, Page
 # Create your views here.
 
 def inicio(request):
-    # Obtén el parámetro de consulta 'buscar' de la URL
     search_query = request.GET.get('buscar', '')
 
-    # Obtén todas las publicaciones que coincidan con la consulta de búsqueda o todas las publicaciones si no hay búsqueda
     if search_query:
         post_list = Post.objects.filter(Q(title__icontains=search_query))
     else:
         post_list = Post.objects.all()
 
-    # Crea un objeto Paginator para paginar los resultados
-    paginator = Paginator(post_list, 5)  # Muestra 5 registros por página
+    paginator = Paginator(post_list, 5)  
 
-    # Obtiene el número de página de la URL o usa 1 como valor predeterminado
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
 
