@@ -12,7 +12,7 @@ def inicio(request):
     search_query = request.GET.get('buscar', '')
 
     if search_query:
-        post_list = Post.objects.filter(Q(title__icontains=search_query))
+        post_list = Post.objects.filter(title__icontains=search_query)
     else:
         post_list = Post.objects.all()
 
