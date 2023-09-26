@@ -4,6 +4,7 @@
 
 {% block content %}
   <h1>Lista de publicaciones</h1>
+  <br>
   <form method="GET" action="{% url 'inicio' %}" class="search-form">
     <input type="text" name="buscar" value="{{ search_query }}" placeholder="Buscar por título">
     <button type="submit">Buscar</button>
