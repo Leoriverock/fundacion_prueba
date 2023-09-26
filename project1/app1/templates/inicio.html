@@ -3,7 +3,7 @@
 {% block title %} Inicio {% endblock %}
 
 {% block content %}
-  <h1>Inicio</h1>
+  <h1>Lista de publicaciones</h1>
   <form method="GET" action="{% url 'inicio' %}" class="search-form">
     <input type="text" name="buscar" value="{{ search_query }}" placeholder="Buscar por título">
     <button type="submit">Buscar</button>
